@@ -36,7 +36,7 @@ import com.mongodb.kafka.connect.sink.MongoSinkConfig;
 import com.mongodb.kafka.connect.sink.MongoSinkTask;
 import com.mongodb.kafka.connect.sink.MongoSinkTopicConfig;
 
-public class MongoSinkConnector extends SinkConnector {
+public class WBAMongoSinkConnector extends SinkConnector {
     private static final List<String> REQUIRED_SINK_ACTIONS = asList("insert", "update", "remove");
     private Map<String, String> settings;
 

@@ -276,26 +276,26 @@ public final class ConnectorValidationTest {
 
     // Helper methods
     private void assertInvalidSource(final Map<String, String> properties) {
-        Config config = new MongoSourceConnector().validate(properties);
+        Config config = new WBAMongoSourceConnector().validate(properties);
         List<String> errorMessages = getConfigValue(config, MongoSourceConfig.CONNECTION_URI_CONFIG).errorMessages();
         assertFalse(errorMessages.isEmpty(), "ErrorMessages shouldn't be empty");
     }
 
     private void assertValidSource(final Map<String, String> properties) {
         assumeTrue(isReplicaSetOrSharded());
-        Config config = new MongoSourceConnector().validate(properties);
+        Config config = new WBAMongoSourceConnector().validate(properties);
         List<String> errorMessages = getConfigValue(config, MongoSourceConfig.CONNECTION_URI_CONFIG).errorMessages();
         assertTrue(errorMessages.isEmpty(), format("ErrorMessages not empty: %s", errorMessages));
     }
 
     private void assertInvalidSink(final Map<String, String> properties) {
-        Config config = new MongoSinkConnector().validate(properties);
+        Config config = new WBAMongoSinkConnector().validate(properties);
         List<String> errorMessages = getConfigValue(config, MongoSourceConfig.CONNECTION_URI_CONFIG).errorMessages();
         assertFalse(errorMessages.isEmpty(), "ErrorMessages shouldn't be empty");
     }
 
     private void assertValidSink(final Map<String, String> properties) {
-        Config config = new MongoSinkConnector().validate(properties);
+        Config config = new WBAMongoSinkConnector().validate(properties);
         List<String> errorMessages = getConfigValue(config, MongoSourceConfig.CONNECTION_URI_CONFIG).errorMessages();
         assertTrue(errorMessages.isEmpty(), format("ErrorMessages not empty: %s", errorMessages));
     }

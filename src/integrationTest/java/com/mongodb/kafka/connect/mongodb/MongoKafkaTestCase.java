@@ -30,6 +30,8 @@ import java.util.Properties;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
+import com.mongodb.kafka.connect.WBAMongoSinkConnector;
+import com.mongodb.kafka.connect.WBAMongoSourceConnector;
 import io.confluent.connect.avro.AvroConverter;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
@@ -46,8 +48,6 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
-import com.mongodb.kafka.connect.MongoSinkConnector;
-import com.mongodb.kafka.connect.MongoSourceConnector;
 import com.mongodb.kafka.connect.embedded.EmbeddedKafka;
 import com.mongodb.kafka.connect.sink.MongoSinkConfig;
 import com.mongodb.kafka.connect.sink.MongoSinkTopicConfig;
@@ -156,7 +156,7 @@ public class MongoKafkaTestCase {
 
     public void addSinkConnector(final Properties overrides) {
         Properties props = new Properties();
-        props.put("connector.class", MongoSinkConnector.class.getName());
+        props.put("connector.class", WBAMongoSinkConnector.class.getName());
         props.put(MongoSinkConfig.CONNECTION_URI_CONFIG, MONGODB.getConnectionString().toString());
         props.put(MongoSinkTopicConfig.DATABASE_CONFIG, MONGODB.getDatabaseName());
         props.put(MongoSinkTopicConfig.COLLECTION_CONFIG, getCollectionName());
@@ -175,7 +175,7 @@ public class MongoKafkaTestCase {
 
     public void addSourceConnector(final Properties overrides) {
         Properties props = new Properties();
-        props.put("connector.class", MongoSourceConnector.class.getName());
+        props.put("connector.class", WBAMongoSourceConnector.class.getName());
         props.put(MongoSourceConfig.CONNECTION_URI_CONFIG, MONGODB.getConnectionString().toString());
 
         overrides.forEach(props::put);

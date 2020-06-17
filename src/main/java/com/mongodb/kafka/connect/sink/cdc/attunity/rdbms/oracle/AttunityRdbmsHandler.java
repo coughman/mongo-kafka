@@ -101,7 +101,6 @@ public class AttunityRdbmsHandler extends AttunityCdcHandler {
         for (String f : keyDoc.keySet()) {
             pk.put(f, keyDoc.get(f));
         }
-        pk.remove("op_type");
         return new BsonDocument(ID_FIELD, pk);
     }
 

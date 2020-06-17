@@ -50,7 +50,7 @@ import com.mongodb.client.MongoDatabase;
 import com.mongodb.kafka.connect.mongodb.MongoKafkaTestCase;
 import com.mongodb.kafka.connect.source.MongoSourceConfig;
 
-public class MongoSourceConnectorTest extends MongoKafkaTestCase {
+public class WBAMongoSourceConnectorTest extends MongoKafkaTestCase {
 
     @BeforeEach
     void setUp() {
