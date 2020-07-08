@@ -31,7 +31,6 @@ import org.apache.kafka.connect.errors.DataException;
 import org.bson.BsonDocument;
 import org.bson.BsonInvalidOperationException;
 import org.bson.BsonObjectId;
-import org.bson.BsonString;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,7 +44,8 @@ public class AttunityRdbmsHandler extends AttunityCdcHandler {
     private static final String JSON_DOC_AFTER_FIELD = "data";
     private static final String JSON_DOC_WRAPPER_FIELD = "message";
     private static final Logger LOGGER = LoggerFactory.getLogger(AttunityRdbmsHandler.class);
-    private static final Map<OperationType, CdcOperation> DEFAULT_OPERATIONS = new HashMap<OperationType, CdcOperation>(){{
+    private static final Map<OperationType, CdcOperation> DEFAULT_OPERATIONS
+            = new HashMap<OperationType, CdcOperation>() {{
         put(OperationType.CREATE, new AttunityRdbmsInsert());
         put(OperationType.READ, new AttunityRdbmsInsert());
         put(OperationType.UPDATE, new AttunityRdbmsUpdate());
@@ -78,7 +78,8 @@ public class AttunityRdbmsHandler extends AttunityCdcHandler {
                 .perform(new SinkDocument(keyDoc, valueDoc)));
     }
 
-    static BsonDocument generateFilterDoc(final BsonDocument keyDoc, final BsonDocument valueDoc, final OperationType opType) {
+    static BsonDocument generateFilterDoc(final BsonDocument keyDoc, final BsonDocument valueDoc,
+                                          final OperationType opType) {
         if (keyDoc.keySet().isEmpty()) {
             if (opType.equals(OperationType.CREATE) || opType.equals(OperationType.READ)) {
                 //create: no PK info in keyDoc -> generate ObjectId
@@ -104,10 +105,13 @@ public class AttunityRdbmsHandler extends AttunityCdcHandler {
         return new BsonDocument(ID_FIELD, pk);
     }
 
-    static BsonDocument generateUpsertOrReplaceDoc(final BsonDocument keyDoc, final BsonDocument valueDoc, final BsonDocument filterDoc) {
+    static BsonDocument generateUpsertOrReplaceDoc(final BsonDocument keyDoc, final BsonDocument valueDoc,
+                                                   final BsonDocument filterDoc) {
 
-        if (!valueDoc.getDocument(JSON_DOC_WRAPPER_FIELD).containsKey(JSON_DOC_AFTER_FIELD) || valueDoc.getDocument(JSON_DOC_WRAPPER_FIELD).get(JSON_DOC_AFTER_FIELD).isNull()
-                || !valueDoc.getDocument(JSON_DOC_WRAPPER_FIELD).get(JSON_DOC_AFTER_FIELD).isDocument() || valueDoc.getDocument(JSON_DOC_WRAPPER_FIELD).getDocument(JSON_DOC_AFTER_FIELD).isEmpty()) {
+        if (!valueDoc.getDocument(JSON_DOC_WRAPPER_FIELD).containsKey(JSON_DOC_AFTER_FIELD)
+                || valueDoc.getDocument(JSON_DOC_WRAPPER_FIELD).get(JSON_DOC_AFTER_FIELD).isNull()
+                || !valueDoc.getDocument(JSON_DOC_WRAPPER_FIELD).get(JSON_DOC_AFTER_FIELD).isDocument()
+                || valueDoc.getDocument(JSON_DOC_WRAPPER_FIELD).getDocument(JSON_DOC_AFTER_FIELD).isEmpty()) {
             throw new DataException("Error: valueDoc must contain non-empty 'data' field"
                     + " of type document for insert/update operation");
         }
@@ -126,10 +130,13 @@ public class AttunityRdbmsHandler extends AttunityCdcHandler {
         return upsertDoc;
     }
 
-    static BsonDocument generateUpdateDoc(final BsonDocument keyDoc, final BsonDocument valueDoc, final BsonDocument filterDoc) {
+    static BsonDocument generateUpdateDoc(final BsonDocument keyDoc, final BsonDocument valueDoc,
+                                          final BsonDocument filterDoc) {
 
-        if (!valueDoc.getDocument(JSON_DOC_WRAPPER_FIELD).containsKey(JSON_DOC_AFTER_FIELD) || valueDoc.getDocument(JSON_DOC_WRAPPER_FIELD).get(JSON_DOC_AFTER_FIELD).isNull()
-                || !valueDoc.getDocument(JSON_DOC_WRAPPER_FIELD).get(JSON_DOC_AFTER_FIELD).isDocument() || valueDoc.getDocument(JSON_DOC_WRAPPER_FIELD).getDocument(JSON_DOC_AFTER_FIELD).isEmpty()) {
+        if (!valueDoc.getDocument(JSON_DOC_WRAPPER_FIELD).containsKey(JSON_DOC_AFTER_FIELD)
+                || valueDoc.getDocument(JSON_DOC_WRAPPER_FIELD).get(JSON_DOC_AFTER_FIELD).isNull()
+                || !valueDoc.getDocument(JSON_DOC_WRAPPER_FIELD).get(JSON_DOC_AFTER_FIELD).isDocument()
+                || valueDoc.getDocument(JSON_DOC_WRAPPER_FIELD).getDocument(JSON_DOC_AFTER_FIELD).isEmpty()) {
             throw new DataException("Error: valueDoc must contain non-empty 'data' field"
                     + " of type document for insert/update operation");
         }

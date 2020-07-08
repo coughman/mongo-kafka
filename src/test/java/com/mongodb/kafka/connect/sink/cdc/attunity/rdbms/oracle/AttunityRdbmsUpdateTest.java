@@ -22,13 +22,18 @@ import com.mongodb.client.model.UpdateOneModel;
 import com.mongodb.client.model.WriteModel;
 import com.mongodb.kafka.connect.sink.converter.SinkDocument;
 import org.apache.kafka.connect.errors.DataException;
-import org.bson.*;
+import org.bson.BsonDocument;
+import org.bson.BsonString;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.platform.runner.JUnitPlatform;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @RunWith(JUnitPlatform.class)
 class AttunityRdbmsUpdateTest {
@@ -37,6 +42,8 @@ class AttunityRdbmsUpdateTest {
     private static final BsonDocument FILTER_DOC = BsonDocument.parse("{_id: {table: 1234, key: 43214}}");
     private static final BsonDocument AFTER_DOC = BsonDocument.parse("{first_name: 'Grace', last_name: 'Hopper'}");
     private static final BsonDocument UPDATE_DOC = BsonDocument.parse("{ $set: {first_name: 'Grace', last_name: 'Hopper'}}");
+
+    private static Logger logger = LoggerFactory.getLogger(AttunityRdbmsUpdateTest.class);
 
     @Test
     @DisplayName("when valid doc change cdc event then correct UpdateOneModel")
@@ -51,7 +58,7 @@ class AttunityRdbmsUpdateTest {
         UpdateOneModel<BsonDocument> writeModel = (UpdateOneModel<BsonDocument>) result;
         assertEquals(UPDATE_DOC, writeModel.getUpdate(), "update doc not matching what is expected");
         assertTrue(writeModel.getFilter() instanceof BsonDocument, "filter expected to be of type BsonDocument");
-        System.out.println(writeModel.toString());
+        logger.info(writeModel.toString());
         assertEquals(FILTER_DOC, writeModel.getFilter());
     }
 
