@@ -30,8 +30,6 @@ import java.util.Properties;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
-import com.mongodb.kafka.connect.WBAMongoSinkConnector;
-import com.mongodb.kafka.connect.WBAMongoSourceConnector;
 import io.confluent.connect.avro.AvroConverter;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
@@ -48,6 +46,8 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
+import com.mongodb.kafka.connect.WBAMongoSinkConnector;
+import com.mongodb.kafka.connect.WBAMongoSourceConnector;
 import com.mongodb.kafka.connect.embedded.EmbeddedKafka;
 import com.mongodb.kafka.connect.sink.MongoSinkConfig;
 import com.mongodb.kafka.connect.sink.MongoSinkTopicConfig;

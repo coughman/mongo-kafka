@@ -18,12 +18,11 @@
 
 package com.mongodb.kafka.connect.sink.cdc.attunity.rdbms.oracle;
 
-import com.mongodb.client.model.UpdateOneModel;
-import com.mongodb.client.model.WriteModel;
-import com.mongodb.kafka.connect.sink.converter.SinkDocument;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.apache.kafka.connect.errors.DataException;
-import org.bson.BsonDocument;
-import org.bson.BsonString;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.platform.runner.JUnitPlatform;
@@ -31,9 +30,13 @@ import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.bson.BsonDocument;
+import org.bson.BsonString;
+
+import com.mongodb.client.model.UpdateOneModel;
+import com.mongodb.client.model.WriteModel;
+
+import com.mongodb.kafka.connect.sink.converter.SinkDocument;
 
 @RunWith(JUnitPlatform.class)
 class AttunityRdbmsUpdateTest {

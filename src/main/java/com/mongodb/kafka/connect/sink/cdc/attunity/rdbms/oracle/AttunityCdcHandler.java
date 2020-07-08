@@ -21,15 +21,17 @@
  */
 package com.mongodb.kafka.connect.sink.cdc.attunity.rdbms.oracle;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.apache.kafka.connect.errors.DataException;
+
+import org.bson.BsonDocument;
+
 import com.mongodb.kafka.connect.sink.MongoSinkTopicConfig;
 import com.mongodb.kafka.connect.sink.cdc.CdcHandler;
 import com.mongodb.kafka.connect.sink.cdc.CdcOperation;
 import com.mongodb.kafka.connect.sink.cdc.debezium.OperationType;
-import org.apache.kafka.connect.errors.DataException;
-import org.bson.BsonDocument;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public abstract class AttunityCdcHandler extends CdcHandler {
     private static final String OPERATION_TYPE_FIELD_PATH = "operation";

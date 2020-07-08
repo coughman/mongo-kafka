@@ -21,14 +21,17 @@
  */
 package com.mongodb.kafka.connect.sink.cdc.attunity.rdbms.oracle;
 
+import org.apache.kafka.connect.errors.DataException;
+
+import org.bson.BsonDocument;
+
 import com.mongodb.client.model.UpdateOneModel;
 import com.mongodb.client.model.UpdateOptions;
 import com.mongodb.client.model.WriteModel;
+
 import com.mongodb.kafka.connect.sink.cdc.CdcOperation;
 import com.mongodb.kafka.connect.sink.cdc.debezium.OperationType;
 import com.mongodb.kafka.connect.sink.converter.SinkDocument;
-import org.apache.kafka.connect.errors.DataException;
-import org.bson.BsonDocument;
 
 public class AttunityRdbmsUpdate implements CdcOperation {
 

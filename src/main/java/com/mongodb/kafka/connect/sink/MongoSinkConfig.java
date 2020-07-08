@@ -33,7 +33,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-import com.mongodb.kafka.connect.WBAMongoSinkConnector;
 import org.apache.kafka.common.config.AbstractConfig;
 import org.apache.kafka.common.config.ConfigDef;
 import org.apache.kafka.common.config.ConfigDef.Importance;
@@ -43,6 +42,7 @@ import org.apache.kafka.common.config.ConfigValue;
 
 import com.mongodb.ConnectionString;
 
+import com.mongodb.kafka.connect.WBAMongoSinkConnector;
 import com.mongodb.kafka.connect.util.Validators;
 
 public class MongoSinkConfig extends AbstractConfig {
