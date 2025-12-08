@@ -46,6 +46,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
+import io.kaufmanng.kafka.connect.mongodb.sink.processor.id.strategy.ProvidedOidInValueStrategy;
+
 import org.apache.kafka.connect.data.Schema;
 import org.apache.kafka.connect.errors.DataException;
 import org.apache.kafka.connect.sink.SinkRecord;
@@ -274,6 +276,32 @@ class IdStrategyTest {
                   DataException.class, () -> idS8.generateId(sdWithBsonNullIdInValueDoc, null));
               assertThrows(
                   DataException.class, () -> idS8.generateId(sdWithInvalidUuidInValueDoc, null));
+            }));
+
+    IdStrategy idS9 = new ProvidedOidInValueStrategy();
+    idTests.add(
+        dynamicTest(
+            BsonOidStrategy.class.getSimpleName(),
+            () -> {
+              String idValue = "48656c6c6f20576f726c669a";
+              SinkDocument sdWithIdInValueDoc =
+                  new SinkDocument(null, new BsonDocument("_id", new BsonString(idValue)));
+              SinkDocument sdWithoutIdInValueDoc = new SinkDocument(null, new BsonDocument());
+              SinkDocument sdWithInvalidOidInValueDoc =
+                  new SinkDocument(null, new BsonDocument("_id", new BsonString("invalid")));
+
+              BsonValue id = idS9.generateId(sdWithIdInValueDoc, null);
+
+              assertAll(
+                  "id checks",
+                  () -> assertTrue(id.isObjectId()),
+                  () ->
+                      assertEquals(
+                          BSON_OID_STRING_LENGTH, id.asObjectId().getValue().toByteArray().length));
+
+              assertThrows(DataException.class, () -> idS9.generateId(sdWithoutIdInValueDoc, null));
+              assertThrows(
+                  DataException.class, () -> idS9.generateId(sdWithInvalidOidInValueDoc, null));
             }));
 
     return idTests;

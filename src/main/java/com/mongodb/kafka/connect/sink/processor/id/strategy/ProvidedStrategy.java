@@ -31,16 +31,16 @@ import org.bson.BsonValue;
 
 import com.mongodb.kafka.connect.sink.converter.SinkDocument;
 
-abstract class ProvidedStrategy implements IdStrategy {
+public abstract class ProvidedStrategy implements IdStrategy {
 
-  protected enum ProvidedIn {
+  public enum ProvidedIn {
     KEY,
     VALUE
   }
 
   private ProvidedIn where;
 
-  ProvidedStrategy(final ProvidedIn where) {
+  public ProvidedStrategy(final ProvidedIn where) {
     this.where = where;
   }
 

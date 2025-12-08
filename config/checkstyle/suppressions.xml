@@ -26,8 +26,11 @@
     <suppress checks="LineLength" files=".*RecordConverterTest.java"/>
     <suppress checks="LineLength" files=".*TaskStatistics.java"/>
     <suppress checks="MethodLength" files=".*RecordConverterTest.java"/>
+    <suppress checks="MethodLength" files="IdStrategyTest.java"/>
 
     <suppress checks="Javadoc*" files="com[\\/]mongodb[\\/]kafka[\\/]connect[\\/]"/>
+    <suppress checks="Javadoc*" files="io[\\/]kaufmanng[\\/]kafka[\\/]connect[\\/]"/>
+    <suppress checks="RegexpSingleline" files="io[\\/]kaufmanng[\\/]kafka[\\/]connect[\\/]"/>
 
     <suppress checks="VisibilityModifier" files=".*FieldnameMapping.java"/>
     <suppress checks="VisibilityModifier" files=".*RegExpSettings.java"/>
