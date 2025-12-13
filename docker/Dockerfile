@@ -1,5 +1,5 @@
-FROM confluentinc/cp-kafka-connect:5.3.0
+FROM confluentinc/cp-kafka-connect-base:8.1.1
 
 ENV CONNECT_PLUGIN_PATH="/usr/share/java,/usr/share/confluent-hub-components"
 
-RUN  confluent-hub install --no-prompt confluentinc/kafka-connect-datagen:latest
+COPY build/confluentArchive/mongodb-kafka-connect-mongodb-2.0.1 /usr/share/confluent-hub-components/mongodb-kafka-connect
