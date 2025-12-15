@@ -62,6 +62,32 @@ Alternatively, if you use Confluent Platform or self managing the connector in y
 }
 ```
 
+# How to run in Docker/Podman
+
+## Build your custom image
+
+Make sure you have built the artifacts first with `gradlew createConfluentArchive`.
+At the top level of this project, run `docker build` (or `podman build`)
+
+```podman build -t mongo-kafka-connector:latest -f docker/Dockerfile .```
+
+## use Docker Compose
+
+Create an environment file with Confluent Cloud credentials
+
+```
+BOOTSTRAP_SERVERS=<pkc-xxxxx.us-east-2.aws>.confluent.cloud:9092
+CLOUD_KEY=<CC-API-KEY>
+CLOUD_API_SECRET=<CC-API-SECRET>
+SCHEMA_REGISTRY_URL=https://psrc-yyyyyy.us-east-2.aws.confluent.cloud
+SCHEMA_REGISTRY_BASIC_AUTH_USER_INFO=<SR-API-KEY>:<SR-API-SECRET>
+SASL_JAAS_CONFIG=org.apache.kafka.common.security.plain.PlainLoginModule required username="<CC-API-KEY>" password="<CC-API-SECRET>";
+```
+
+Run `docker compose`:
+
+```docker compose -f docker/docker-compose-cc.yml --env-file my.env up -d```
+
 # Limitations
 
 * The string _must_ be of valid HEX format as per ObjectId spec, otherwise the writing of the record will fail (and may go to DLQ if configured to do so)
